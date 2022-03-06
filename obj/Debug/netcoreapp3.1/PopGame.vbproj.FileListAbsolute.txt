@@ -1,0 +1,16 @@
+C:\Users\Natty\source\repos\PopGame\PopGame\obj\Debug\netcoreapp3.1\PopGame.vbprojAssemblyReference.cache
+C:\Users\Natty\source\repos\PopGame\PopGame\obj\Debug\netcoreapp3.1\PopGame.vbproj.GenerateResource.cache
+C:\Users\Natty\source\repos\PopGame\PopGame\obj\Debug\netcoreapp3.1\PopGame.AssemblyInfoInputs.cache
+C:\Users\Natty\source\repos\PopGame\PopGame\obj\Debug\netcoreapp3.1\PopGame.AssemblyInfo.vb
+C:\Users\Natty\source\repos\PopGame\PopGame\obj\Debug\netcoreapp3.1\PopGame.vbproj.CoreCompileInputs.cache
+C:\Users\Natty\source\repos\PopGame\PopGame\bin\Debug\netcoreapp3.1\PopGame.exe
+C:\Users\Natty\source\repos\PopGame\PopGame\bin\Debug\netcoreapp3.1\PopGame.deps.json
+C:\Users\Natty\source\repos\PopGame\PopGame\bin\Debug\netcoreapp3.1\PopGame.runtimeconfig.json
+C:\Users\Natty\source\repos\PopGame\PopGame\bin\Debug\netcoreapp3.1\PopGame.runtimeconfig.dev.json
+C:\Users\Natty\source\repos\PopGame\PopGame\bin\Debug\netcoreapp3.1\PopGame.dll
+C:\Users\Natty\source\repos\PopGame\PopGame\bin\Debug\netcoreapp3.1\PopGame.pdb
+C:\Users\Natty\source\repos\PopGame\PopGame\obj\Debug\netcoreapp3.1\PopGame.dll
+C:\Users\Natty\source\repos\PopGame\PopGame\obj\Debug\netcoreapp3.1\PopGame.pdb
+C:\Users\Natty\source\repos\PopGame\PopGame\obj\Debug\netcoreapp3.1\PopGame.genruntimeconfig.cache
+C:\Users\Natty\source\repos\PopGame\PopGame\obj\Debug\netcoreapp3.1\PopGame.MainView.resources
+C:\Users\Natty\source\repos\PopGame\PopGame\obj\Debug\netcoreapp3.1\PopGame.Jobs.resources
