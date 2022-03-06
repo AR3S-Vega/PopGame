@@ -51,8 +51,6 @@
 
             End If
 
-
-
         End If
 
         If popgrowthprogess >= population Then
