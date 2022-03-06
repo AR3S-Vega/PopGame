@@ -5,6 +5,23 @@
     Dim deaths As Int64 = 0
     Dim popgrowthprogess As Int64 = 0
     Dim JobForm As New Jobs
+    Public Function findJobQuantity(jobTitle)
+        Dim index As Int64 = Array.IndexOf(SharedVariables.jobsList, jobTitle)
+        Return (SharedVariables.jobsQuantity(index))
+    End Function
+
+    Public Function findJobIndex(jobTitle)
+        Return Array.IndexOf(SharedVariables.jobsList, jobTitle)
+    End Function
+
+    Public Function findResoucesQuantity(resourceTitle)
+        Dim index As Int64 = Array.IndexOf(SharedVariables.resourceList, resourceTitle)
+        Return (SharedVariables.resourceQuantity(index))
+    End Function
+
+    Public Function findResourceIndex(resourceTitle)
+        Return Array.IndexOf(SharedVariables.resourceList, resourceTitle)
+    End Function
     Private Sub tmrparsetick_Tick(sender As Object, e As EventArgs) Handles tmrparsetick.Tick
 
         lblIdlePops.Text = ("Idle Pops:" + Str(SharedVariables.idlepops))
@@ -78,25 +95,6 @@
             JobForm.Show()
         End If
     End Sub
-
-    Public Function findJobQuantity(jobTitle)
-        Dim index As Int64 = Array.IndexOf(SharedVariables.jobsList, jobTitle)
-        Return (SharedVariables.jobsQuantity(index))
-    End Function
-
-    Public Function findJobIndex(jobTitle)
-        Return Array.IndexOf(SharedVariables.jobsList, jobTitle)
-    End Function
-
-    Public Function findResoucesQuantity(resourceTitle)
-        Dim index As Int64 = Array.IndexOf(SharedVariables.resourceList, resourceTitle)
-        Return (SharedVariables.resourceQuantity(index))
-    End Function
-
-    Public Function findResourceIndex(resourceTitle)
-        Return Array.IndexOf(SharedVariables.resourceList, resourceTitle)
-    End Function
-
     Public Sub refreshResourceLsv()
         ParseJobs()
 
@@ -116,21 +114,54 @@
             lsvResources.Items.Insert(0, itm)
         Next index
     End Sub
-
+    Public Sub resetRPS()
+        For index As Integer = 0 To SharedVariables.resourcePerSec.Length - 1
+            SharedVariables.resourcePerSec(index) = 0
+        Next index
+    End Sub
     Public Sub ParseFoodJobs()
-        SharedVariables.resourceQuantity(findResourceIndex("Food")) += SharedVariables.resourcePerSec(findResourceIndex("Food"))
-
         SharedVariables.resourcePerSec(findResourceIndex("Food")) = 0
-        SharedVariables.resourcePerSec(findResourceIndex("Food")) += 2 * findJobQuantity("Forager")
+        For index As Integer = 0 To SharedVariables.foodjobs.Length - 1
+            SharedVariables.resourcePerSec(findResourceIndex("Food")) += findJobQuantity(SharedVariables.foodjobs(index)) * SharedVariables.foodjobsQuantity(index)
+        Next index
+
         SharedVariables.resourcePerSec(findResourceIndex("Food")) -= population
+
+        SharedVariables.resourceQuantity(findResourceIndex("Food")) += SharedVariables.resourcePerSec(findResourceIndex("Food"))
 
         If SharedVariables.resourceQuantity(findResourceIndex("Food")) < 0 Then
             SharedVariables.resourceQuantity(findResourceIndex("Food")) = 0
         End If
+
+    End Sub
+
+    Public Sub parseSingularBasicJob(jobTitle, jobResource, jobQuantity)
+        SharedVariables.resourcePerSec(findResourceIndex(jobResource)) += findJobQuantity(jobTitle) * jobQuantity
+        SharedVariables.resourceQuantity(findResourceIndex(jobResource)) += SharedVariables.resourcePerSec(findResourceIndex(jobResource))
+    End Sub
+
+    Public Sub parseSingularBasicJobSub(jobTitle, jobResource, jobQuantity, subResource, subQuantity)
+        If SharedVariables.resourceQuantity(findResourceIndex(subResource)) > 0 Then
+            SharedVariables.resourcePerSec(findResourceIndex(jobResource)) += findJobQuantity(jobTitle) * jobQuantity
+            SharedVariables.resourceQuantity(findResourceIndex(jobResource)) += SharedVariables.resourcePerSec(findResourceIndex(jobResource)) * jobQuantity
+            SharedVariables.resourcePerSec(findResourceIndex(subResource)) -= findJobQuantity(jobTitle) * subQuantity
+        End If
+    End Sub
+    Public Sub ParseBasicJobs()
+
+        parseSingularBasicJobSub("Hunter", "Pelt", 1, "Primitive Tools", 1)
+        parseSingularBasicJobSub("Crafter", "Primitive Tools", 1, "Rocks", 1)
+        parseSingularBasicJobSub("Crafter", "Primitive Tools", 0, "Sticks", 1)
+        parseSingularBasicJob("Gatherer", "Sticks", 2)
+        parseSingularBasicJob("Gatherer", "Rocks", 1)
+
     End Sub
 
     Public Sub ParseJobs()
+        resetRPS()
+        ParseBasicJobs()
         ParseFoodJobs()
     End Sub
+
 
 End Class
